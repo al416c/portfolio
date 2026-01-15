@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛡️ Cybersecurity Portfolio
 
-## Getting Started
+A stunning, Apple-inspired portfolio website built with Next.js, featuring smooth animations and a cybersecurity theme. Perfect for job interviews and showcasing your expertise.
 
-First, run the development server:
+## ✨ Features
+
+- **Apple-Inspired Design**: Clean, modern aesthetics inspired by apple.com
+- **Matrix Rain Effect**: Animated cybersecurity-themed background
+- **Smooth Animations**: Powered by Framer Motion and Anime.js
+- **Responsive Design**: Looks great on all devices
+- **Custom Cursor**: Interactive cursor effect on desktop
+- **Scroll Progress**: Visual scroll indicator
+- **Glassmorphism**: Modern glass-effect cards
+- **Easy Customization**: All content in one config file
+
+## 🚀 Quick Start
+
+### Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📝 Customization
 
-To learn more about Next.js, take a look at the following resources:
+All content can be edited in a single file: `src/config/content.ts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Personal Information
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+export const siteConfig = {
+  name: "Your Name",
+  title: "Cybersecurity Expert",
+  email: "your.email@example.com",
+  github: "https://github.com/yourusername",
+  linkedin: "https://linkedin.com/in/yourusername",
+  twitter: "https://twitter.com/yourusername",
+};
+```
 
-## Deploy on Vercel
+### Sections to Customize
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Hero Section** (`heroContent`) - Greeting, name, title, subtitle, description
+2. **About Section** (`aboutContent`) - Bio paragraphs, statistics
+3. **Skills Section** (`skillsContent`) - Skill categories and individual skills
+4. **Projects Section** (`projectsContent`) - Project details, descriptions, tags, links
+5. **Experience Section** (`experienceContent`) - Job history, timeline
+6. **Certifications** (`certificationsContent`) - Your certifications and achievements
+7. **Contact Section** (`contactContent`) - Form labels, description
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Theming
+
+Colors can be customized in `src/app/globals.css`:
+
+```css
+:root {
+  --color-cyber-green: #00ff88;
+  --color-cyber-blue: #00d4ff;
+  --color-cyber-purple: #9d4edd;
+  --color-cyber-pink: #ff006e;
+  --color-dark-bg: #0a0a0f;
+  --color-dark-surface: #12121a;
+  --color-dark-border: #1e1e2e;
+}
+```
+
+## 🚀 Deploy to Vercel
+
+### Option 1: Vercel CLI
+
+```bash
+npm i -g vercel
+vercel
+```
+
+### Option 2: GitHub Integration
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Import your repository
+4. Deploy with one click
+
+## 📁 Project Structure
+
+```
+portfolio/
+├── src/
+│   ├── app/
+│   │   ├── globals.css       # Global styles
+│   │   ├── layout.tsx        # Root layout
+│   │   └── page.tsx          # Main page
+│   ├── components/
+│   │   ├── MatrixRain.tsx    # Background animation
+│   │   ├── Navigation.tsx    # Header navigation
+│   │   ├── HeroSection.tsx   # Hero/landing section
+│   │   ├── AboutSection.tsx  # About me section
+│   │   ├── SkillsSection.tsx # Skills/arsenal section
+│   │   ├── ProjectsSection.tsx # Projects showcase
+│   │   ├── ExperienceSection.tsx # Timeline/experience
+│   │   ├── ContactSection.tsx # Contact form
+│   │   ├── Footer.tsx        # Footer
+│   │   ├── ScrollProgress.tsx # Scroll indicator
+│   │   └── CustomCursor.tsx  # Custom cursor effect
+│   └── config/
+│       └── content.ts        # ⭐ ALL CONTENT HERE
+├── public/
+│   └── projects/             # Project images
+└── package.json
+```
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion, Anime.js
+- **Language**: TypeScript
+- **Deployment**: Vercel
+
+## 📸 Adding Project Images
+
+Place your project images in `public/projects/`:
+
+```
+public/projects/
+├── project1.jpg
+├── project2.jpg
+├── project3.jpg
+└── project4.jpg
+```
+
+Then reference them in `src/config/content.ts`.
+
+---
+
+**Made with 💚 for the cybersecurity community**
