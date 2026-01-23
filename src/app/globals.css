@@ -6,15 +6,16 @@
   --paradise-grass: #4a7c3f;
   --paradise-sun: #ffd93d;
   
-  /* Dark Web Theme */
+  /* Dark Web Theme - Red */
   --dark-bg: #0a0a0a;
   --dark-surface: #111111;
   --dark-border: #1a1a1a;
-  --terminal-green: #00ff41;
+  --terminal-accent: #ff3333;
+  --terminal-accent-dark: #cc2929;
   --terminal-red: #ff0040;
   --terminal-amber: #ffb000;
-  --glitch-cyan: #00ffff;
-  --glitch-magenta: #ff00ff;
+  --glitch-red: #ff3333;
+  --glitch-crimson: #dc143c;
 }
 
 * {
@@ -42,12 +43,12 @@ body {
 }
 
 .dark-mode ::-webkit-scrollbar-thumb {
-  background: var(--terminal-green);
+  background: var(--terminal-accent);
   border-radius: 4px;
 }
 
 .dark-mode ::-webkit-scrollbar-thumb:hover {
-  background: #00cc33;
+  background: var(--terminal-accent-dark);
 }
 
 /* Glitch effect */
@@ -125,7 +126,7 @@ body {
 
 /* Selection styling for dark mode */
 .dark-mode ::selection {
-  background: var(--terminal-green);
+  background: var(--terminal-accent);
   color: var(--dark-bg);
 }
 
@@ -142,12 +143,16 @@ body {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--terminal-green);
+  background: var(--terminal-accent);
   transition: width 0.3s ease;
 }
 
 .cyber-link:hover::after {
   width: 100%;
+}
+
+.cyber-link:hover {
+  color: var(--terminal-accent);
 }
 
 /* Typing effect */

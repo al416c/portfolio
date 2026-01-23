@@ -1,40 +1,40 @@
 // Site configuration - Easy to customize
 export const siteConfig = {
   name: 'Alex Manfait',
-  title: 'Security Researcher & Developer',
+  title: 'Chercheur en Sécurité & Développeur',
   email: 'contact@alexmanfait.com',
   location: 'France',
 };
 
 // The paradise quote
 export const paradiseContent = {
-  quote: "In the garden of digital Eden, knowledge is both the fruit and the serpent.",
+  quote: "Dans le jardin de l'Éden numérique, la connaissance est à la fois le fruit et le serpent.",
   author: "Alex Manfait",
-  buttonText: "Take a bite",
-  subtitle: "...and fall from grace",
+  buttonText: "Croquer la pomme",
+  subtitle: "...et perdre l'innocence",
 };
 
 // Dark world content
 export const darkWorldContent = {
   terminalGreeting: [
-    '> Initializing secure connection...',
-    '> Bypassing firewalls...',
-    '> Access granted.',
-    '> Welcome to the other side.',
+    '> Initialisation connexion sécurisée...',
+    '> Contournement des pare-feux...',
+    '> Accès autorisé.',
+    '> Bienvenue de l\'autre côté.',
   ],
-  tagline: 'Where others see walls, I see doors.',
+  tagline: 'Là où les autres voient des murs, je vois des portes.',
 };
 
 // About section
 export const aboutContent = {
-  headline: 'I break things to understand how they work.',
-  description: `Security researcher by profession, hacker by curiosity. I navigate the shadows 
-of digital infrastructure to expose vulnerabilities before malicious actors do. 
-My work exists in the space between chaos and protection.`,
+  headline: 'Je casse les choses pour comprendre comment elles fonctionnent.',
+  description: `Chercheur en sécurité de profession, hacker par curiosité. Je navigue dans l'ombre
+des infrastructures numériques pour exposer les vulnérabilités avant les acteurs malveillants.
+Mon travail existe dans l'espace entre le chaos et la protection.`,
   stats: [
-    { value: '50+', label: 'Vulnerabilities Reported' },
-    { value: '12', label: 'CVEs Discovered' },
-    { value: '99.9%', label: 'Success Rate' },
+    { value: '50+', label: 'Vulnérabilités Signalées' },
+    { value: '12', label: 'CVEs Découvertes' },
+    { value: '99.9%', label: 'Taux de Réussite' },
   ],
 };
 
@@ -42,24 +42,24 @@ My work exists in the space between chaos and protection.`,
 export const skillsContent = {
   categories: [
     {
-      name: 'Offensive Security',
+      name: 'Sécurité Offensive',
       icon: '⚔️',
-      skills: ['Penetration Testing', 'Red Team Operations', 'Social Engineering', 'Exploit Development', 'Reverse Engineering'],
+      skills: ['Tests d\'Intrusion', 'Opérations Red Team', 'Ingénierie Sociale', 'Développement d\'Exploits', 'Rétro-ingénierie'],
     },
     {
-      name: 'Defensive Security',
+      name: 'Sécurité Défensive',
       icon: '🛡️',
-      skills: ['Incident Response', 'Threat Hunting', 'SIEM/SOC', 'Malware Analysis', 'Forensics'],
+      skills: ['Réponse aux Incidents', 'Threat Hunting', 'SIEM/SOC', 'Analyse de Malwares', 'Forensics'],
     },
     {
-      name: 'Programming',
+      name: 'Programmation',
       icon: '💻',
       skills: ['Python', 'Rust', 'Assembly', 'C/C++', 'Go', 'JavaScript', 'Bash'],
     },
     {
       name: 'Infrastructure',
       icon: '🌐',
-      skills: ['Network Security', 'Cloud Security', 'Container Security', 'Zero Trust', 'PKI'],
+      skills: ['Sécurité Réseau', 'Sécurité Cloud', 'Sécurité Conteneurs', 'Zero Trust', 'PKI'],
     },
   ],
 };
@@ -69,27 +69,27 @@ export const projectsContent = {
   featured: [
     {
       title: 'Ghost Protocol',
-      description: 'Advanced network reconnaissance framework with stealth capabilities and automated vulnerability mapping.',
-      tags: ['Python', 'Network', 'Stealth'],
-      status: 'Active',
+      description: 'Framework avancé de reconnaissance réseau avec capacités furtives et cartographie automatisée des vulnérabilités.',
+      tags: ['Python', 'Réseau', 'Furtivité'],
+      status: 'Actif',
     },
     {
       title: 'CryptoBreaker',
-      description: 'Cryptographic analysis toolkit for identifying weak implementations in enterprise applications.',
-      tags: ['Rust', 'Cryptography', 'Analysis'],
-      status: 'Active',
+      description: 'Boîte à outils d\'analyse cryptographique pour identifier les implémentations faibles dans les applications d\'entreprise.',
+      tags: ['Rust', 'Cryptographie', 'Analyse'],
+      status: 'Actif',
     },
     {
       title: 'PhantomShell',
-      description: 'Undetectable reverse shell with encrypted communications and anti-forensics features.',
-      tags: ['C', 'Assembly', 'Evasion'],
-      status: 'Research',
+      description: 'Shell inversé indétectable avec communications chiffrées et fonctionnalités anti-forensics.',
+      tags: ['C', 'Assembly', 'Évasion'],
+      status: 'Recherche',
     },
     {
       title: 'VulnHunter',
-      description: 'Automated vulnerability scanner with machine learning-based false positive reduction.',
-      tags: ['Python', 'ML', 'Automation'],
-      status: 'Active',
+      description: 'Scanner de vulnérabilités automatisé avec réduction des faux positifs basée sur le machine learning.',
+      tags: ['Python', 'ML', 'Automatisation'],
+      status: 'Actif',
     },
   ],
 };
@@ -99,27 +99,27 @@ export const experienceContent = {
   timeline: [
     {
       year: '2024',
-      role: 'Senior Security Researcher',
-      company: 'Classified',
-      description: 'Leading red team operations and vulnerability research for critical infrastructure.',
+      role: 'Chercheur Sécurité Senior',
+      company: 'Confidentiel',
+      description: 'Direction des opérations red team et recherche de vulnérabilités pour infrastructures critiques.',
     },
     {
       year: '2022',
-      role: 'Penetration Tester',
+      role: 'Pentester',
       company: 'CyberDefense Corp',
-      description: 'Conducted security assessments for Fortune 500 companies.',
+      description: 'Audits de sécurité pour des entreprises du Fortune 500.',
     },
     {
       year: '2020',
-      role: 'Security Analyst',
+      role: 'Analyste Sécurité',
       company: 'ThreatWatch',
-      description: 'Threat hunting and incident response for enterprise clients.',
+      description: 'Threat hunting et réponse aux incidents pour clients entreprise.',
     },
     {
       year: '2018',
       role: 'Bug Bounty Hunter',
-      company: 'Independent',
-      description: 'Started career finding vulnerabilities in major tech platforms.',
+      company: 'Indépendant',
+      description: 'Début de carrière en découvrant des vulnérabilités sur les grandes plateformes tech.',
     },
   ],
   certifications: ['OSCP', 'OSCE', 'CRTO', 'GPEN', 'CEH'],
@@ -127,13 +127,13 @@ export const experienceContent = {
 
 // Contact
 export const contactContent = {
-  headline: 'Got a security problem?',
-  subheadline: "Let's talk.",
-  pgpNote: 'PGP key available upon request for sensitive communications.',
+  headline: 'Un problème de sécurité ?',
+  subheadline: 'Parlons-en.',
+  pgpNote: 'Clé PGP disponible sur demande pour les communications sensibles.',
   socials: [
     { name: 'GitHub', url: 'https://github.com', handle: '@alexmanfait' },
     { name: 'LinkedIn', url: 'https://linkedin.com', handle: '/in/alexmanfait' },
     { name: 'Twitter', url: 'https://twitter.com', handle: '@alexmanfait' },
   ],
-  status: 'Available for consulting',
+  status: 'Disponible pour consulting',
 };

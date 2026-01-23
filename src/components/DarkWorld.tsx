@@ -41,7 +41,8 @@ export default function DarkWorld() {
     offset: ['start start', 'end end'],
   });
 
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
+  // Track scroll for potential future animations
+  useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
 
   useEffect(() => {
     // Delay content reveal for dramatic effect
@@ -56,8 +57,8 @@ export default function DarkWorld() {
         {matrixChars.map((char) => (
           <motion.span
             key={char.id}
-            className="absolute text-green-500 font-mono text-sm"
-            style={{ left: `${char.x}%` }}
+            className="absolute font-mono text-sm"
+            style={{ left: `${char.x}%`, color: '#ff3333' }}
             initial={{ y: '-10%', opacity: 0 }}
             animate={{
               y: '110vh',
@@ -83,34 +84,38 @@ export default function DarkWorld() {
 
       {/* Navigation */}
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-40 px-6 py-4 backdrop-blur-md bg-black/50 border-b border-green-500/20"
-        style={{ opacity: headerOpacity }}
+        className="fixed top-0 left-0 right-0 z-40 px-6 py-4 backdrop-blur-md bg-black/50"
+        style={{ borderBottom: '1px solid rgba(255, 51, 51, 0.2)' }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ delay: 0.5, duration: 0.5 }}
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <motion.div
-            className="font-mono text-green-500 text-lg"
-            whileHover={{ textShadow: '0 0 10px #00ff41' }}
+            className="font-mono text-lg"
+            style={{ color: '#ff3333' }}
+            whileHover={{ textShadow: '0 0 10px #ff3333' }}
           >
-            <span className="text-green-400">root@</span>
+            <span style={{ color: '#cc2929' }}>root@</span>
             <span className="text-white">{siteConfig.name.toLowerCase().replace(' ', '-')}</span>
-            <span className="text-green-400">:~$</span>
+            <span style={{ color: '#cc2929' }}>:~$</span>
             <span className="animate-pulse ml-1">_</span>
           </motion.div>
 
           <div className="hidden md:flex items-center gap-8 font-mono text-sm">
-            {['About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-400 hover:text-green-500 transition-colors cyber-link"
-                whileHover={{ scale: 1.05 }}
-              >
-                ./{item.toLowerCase()}
-              </motion.a>
-            ))}
+            {['À propos', 'Compétences', 'Projets', 'Expérience', 'Contact'].map((item, index) => {
+              const ids = ['about', 'skills', 'projects', 'experience', 'contact'];
+              return (
+                <motion.a
+                  key={item}
+                  href={`#${ids[index]}`}
+                  className="text-gray-400 transition-colors cyber-link"
+                  whileHover={{ scale: 1.05, color: '#ff3333' }}
+                >
+                  ./{ids[index]}
+                </motion.a>
+              );
+            })}
           </div>
         </div>
       </motion.nav>
@@ -130,7 +135,7 @@ export default function DarkWorld() {
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             {/* Skull ASCII art */}
-            <pre className="text-green-500/60 text-xs md:text-sm font-mono leading-none mx-auto inline-block">
+            <pre className="text-xs md:text-sm font-mono leading-none mx-auto inline-block" style={{ color: 'rgba(255, 51, 51, 0.6)' }}>
 {`    ░░░░░░░░░░░░░░░░░
    ░░░░▄▄▄▄▄▄▄▄▄▄▄░░░░
    ░░▄█░░░░░░░░░░░█▄░░
@@ -153,7 +158,7 @@ export default function DarkWorld() {
           >
             <span className="text-white">{siteConfig.name.split(' ')[0]}</span>
             <br />
-            <span className="text-green-500">{siteConfig.name.split(' ')[1]}</span>
+            <span style={{ color: '#ff3333' }}>{siteConfig.name.split(' ')[1]}</span>
           </motion.h1>
 
           <motion.p
@@ -166,7 +171,8 @@ export default function DarkWorld() {
           </motion.p>
 
           <motion.p
-            className="text-lg md:text-xl text-green-500/80 font-mono mb-12"
+            className="text-lg md:text-xl font-mono mb-12"
+            style={{ color: 'rgba(255, 51, 51, 0.8)' }}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.8 }}
@@ -182,23 +188,36 @@ export default function DarkWorld() {
           >
             <motion.a
               href="#contact"
-              className="px-8 py-3 bg-green-500 text-black font-mono font-bold rounded-none
-                         hover:bg-green-400 transition-all duration-300 border border-green-500
-                         hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
-              whileHover={{ scale: 1.02 }}
+              className="px-8 py-3 font-mono font-bold rounded-none transition-all duration-300"
+              style={{ 
+                backgroundColor: '#ff3333', 
+                color: 'black',
+                border: '1px solid #ff3333',
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                backgroundColor: '#cc2929',
+                boxShadow: '0 0 20px rgba(255, 51, 51, 0.5)',
+              }}
               whileTap={{ scale: 0.98 }}
             >
-              ./hire_me --urgent
+              ./recrutez_moi --urgent
             </motion.a>
             <motion.a
               href="#projects"
-              className="px-8 py-3 bg-transparent text-green-500 font-mono font-bold rounded-none
-                         border border-green-500/50 hover:border-green-500 transition-all duration-300
-                         hover:shadow-[0_0_20px_rgba(0,255,65,0.2)]"
-              whileHover={{ scale: 1.02 }}
+              className="px-8 py-3 bg-transparent font-mono font-bold rounded-none transition-all duration-300"
+              style={{ 
+                color: '#ff3333',
+                border: '1px solid rgba(255, 51, 51, 0.5)',
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                borderColor: '#ff3333',
+                boxShadow: '0 0 20px rgba(255, 51, 51, 0.2)',
+              }}
               whileTap={{ scale: 0.98 }}
             >
-              cat projects.txt
+              cat projets.txt
             </motion.a>
           </motion.div>
         </motion.div>
@@ -209,8 +228,8 @@ export default function DarkWorld() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <div className="w-6 h-10 border-2 border-green-500/50 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-2 bg-green-500 rounded-full" />
+          <div className="w-6 h-10 border-2 rounded-full flex justify-center pt-2" style={{ borderColor: 'rgba(255, 51, 51, 0.5)' }}>
+            <div className="w-1 h-2 rounded-full" style={{ backgroundColor: '#ff3333' }} />
           </div>
         </motion.div>
       </section>
@@ -218,7 +237,7 @@ export default function DarkWorld() {
       {/* About Section */}
       <section id="about" className="py-32 px-6">
         <div className="max-w-4xl mx-auto">
-          <SectionHeader title="About" command="whoami" />
+          <SectionHeader title="À propos" command="whoami" />
           
           <motion.div
             className="mt-12 grid md:grid-cols-2 gap-12"
@@ -240,17 +259,21 @@ export default function DarkWorld() {
               {aboutContent.stats.map((stat, i) => (
                 <motion.div
                   key={i}
-                  className="border border-green-500/30 p-4 bg-green-500/5"
+                  className="p-4"
+                  style={{ 
+                    border: '1px solid rgba(255, 51, 51, 0.3)',
+                    backgroundColor: 'rgba(255, 51, 51, 0.05)',
+                  }}
                   initial={{ x: 50, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
                   transition={{ delay: i * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ 
-                    borderColor: 'rgba(0,255,65,0.8)',
-                    boxShadow: '0 0 20px rgba(0,255,65,0.1)',
+                    borderColor: 'rgba(255, 51, 51, 0.8)',
+                    boxShadow: '0 0 20px rgba(255, 51, 51, 0.1)',
                   }}
                 >
-                  <div className="text-3xl font-mono text-green-500 mb-1">{stat.value}</div>
+                  <div className="text-3xl font-mono mb-1" style={{ color: '#ff3333' }}>{stat.value}</div>
                   <div className="text-sm text-gray-500">{stat.label}</div>
                 </motion.div>
               ))}
@@ -262,20 +285,21 @@ export default function DarkWorld() {
       {/* Skills Section */}
       <section id="skills" className="py-32 px-6 bg-black/30">
         <div className="max-w-6xl mx-auto">
-          <SectionHeader title="Skills" command="cat /etc/skills.conf" />
+          <SectionHeader title="Compétences" command="cat /etc/skills.conf" />
           
           <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillsContent.categories.map((category, i) => (
               <motion.div
                 key={category.name}
-                className="border border-gray-800 bg-[#0d0d0d] p-6 hover:border-green-500/50 transition-all duration-300"
+                className="border border-gray-800 bg-[#0d0d0d] p-6 transition-all duration-300"
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ 
                   y: -5,
-                  boxShadow: '0 10px 40px rgba(0,255,65,0.1)',
+                  borderColor: 'rgba(255, 51, 51, 0.5)',
+                  boxShadow: '0 10px 40px rgba(255, 51, 51, 0.1)',
                 }}
               >
                 <div className="text-2xl mb-3">{category.icon}</div>
@@ -283,7 +307,7 @@ export default function DarkWorld() {
                 <ul className="space-y-2">
                   {category.skills.map((skill) => (
                     <li key={skill} className="text-sm text-gray-400 flex items-center gap-2">
-                      <span className="text-green-500">›</span>
+                      <span style={{ color: '#ff3333' }}>›</span>
                       {skill}
                     </li>
                   ))}
@@ -297,7 +321,7 @@ export default function DarkWorld() {
       {/* Projects Section */}
       <section id="projects" className="py-32 px-6">
         <div className="max-w-6xl mx-auto">
-          <SectionHeader title="Projects" command="ls -la ~/projects/" />
+          <SectionHeader title="Projets" command="ls -la ~/projets/" />
           
           <div className="mt-12 grid md:grid-cols-2 gap-8">
             {projectsContent.featured.map((project, i) => (
@@ -308,23 +332,28 @@ export default function DarkWorld() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ borderColor: 'rgba(0,255,65,0.5)' }}
+                whileHover={{ borderColor: 'rgba(255, 51, 51, 0.5)' }}
               >
                 {/* Status badge */}
                 <div className="absolute top-4 right-4">
                   <span className={`text-xs font-mono px-2 py-1 ${
                     project.status === 'Active' 
-                      ? 'bg-green-500/20 text-green-500' 
+                      ? 'text-[#ff3333]' 
                       : 'bg-yellow-500/20 text-yellow-500'
-                  }`}>
+                  }`}
+                  style={project.status === 'Active' ? { backgroundColor: 'rgba(255, 51, 51, 0.2)' } : {}}
+                  >
                     {project.status}
                   </span>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-500 transition-colors">
+                  <motion.h3 
+                    className="text-xl font-bold text-white mb-3"
+                    whileHover={{ color: '#ff3333' }}
+                  >
                     {project.title}
-                  </h3>
+                  </motion.h3>
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {project.description}
                   </p>
@@ -342,7 +371,8 @@ export default function DarkWorld() {
 
                 {/* Hover effect line */}
                 <motion.div
-                  className="absolute bottom-0 left-0 h-0.5 bg-green-500"
+                  className="absolute bottom-0 left-0 h-0.5"
+                  style={{ backgroundColor: '#ff3333' }}
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
                   transition={{ duration: 0.3 }}
@@ -356,11 +386,11 @@ export default function DarkWorld() {
       {/* Experience Section */}
       <section id="experience" className="py-32 px-6 bg-black/30">
         <div className="max-w-4xl mx-auto">
-          <SectionHeader title="Experience" command="history | grep -i career" />
+          <SectionHeader title="Expérience" command="history | grep -i carriere" />
           
           <div className="mt-12 relative">
             {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-green-500/30 -translate-x-1/2" />
+            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2" style={{ backgroundColor: 'rgba(255, 51, 51, 0.3)' }} />
 
             {experienceContent.timeline.map((exp, i) => (
               <motion.div
@@ -374,11 +404,14 @@ export default function DarkWorld() {
                 viewport={{ once: true }}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 w-3 h-3 bg-green-500 rounded-full -translate-x-1/2 shadow-[0_0_10px_rgba(0,255,65,0.5)]" />
+                <div 
+                  className="absolute left-0 md:left-1/2 w-3 h-3 rounded-full -translate-x-1/2" 
+                  style={{ backgroundColor: '#ff3333', boxShadow: '0 0 10px rgba(255, 51, 51, 0.5)' }}
+                />
 
                 {/* Content */}
                 <div className={`ml-8 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                  <span className="text-green-500 font-mono text-sm">{exp.year}</span>
+                  <span className="font-mono text-sm" style={{ color: '#ff3333' }}>{exp.year}</span>
                   <h3 className="text-xl font-bold text-white mt-1">{exp.role}</h3>
                   <p className="text-gray-500 text-sm">{exp.company}</p>
                   <p className="text-gray-400 mt-2 text-sm">{exp.description}</p>
@@ -399,9 +432,16 @@ export default function DarkWorld() {
               {experienceContent.certifications.map((cert) => (
                 <motion.span
                   key={cert}
-                  className="px-4 py-2 border border-green-500/30 text-green-500 font-mono text-sm
-                           hover:bg-green-500/10 hover:border-green-500 transition-all cursor-default"
-                  whileHover={{ scale: 1.05 }}
+                  className="px-4 py-2 font-mono text-sm transition-all cursor-default"
+                  style={{ 
+                    border: '1px solid rgba(255, 51, 51, 0.3)',
+                    color: '#ff3333',
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    backgroundColor: 'rgba(255, 51, 51, 0.1)',
+                    borderColor: '#ff3333',
+                  }}
                 >
                   {cert}
                 </motion.span>
@@ -425,14 +465,20 @@ export default function DarkWorld() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {contactContent.headline}
             </h2>
-            <p className="text-xl text-green-500 mb-8">{contactContent.subheadline}</p>
+            <p className="text-xl mb-8" style={{ color: '#ff3333' }}>{contactContent.subheadline}</p>
 
             <motion.a
               href={`mailto:${siteConfig.email}`}
-              className="inline-block px-10 py-4 bg-green-500 text-black font-mono font-bold text-lg
-                       hover:bg-green-400 transition-all duration-300
-                       hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]"
-              whileHover={{ scale: 1.02 }}
+              className="inline-block px-10 py-4 font-mono font-bold text-lg transition-all duration-300"
+              style={{ 
+                backgroundColor: '#ff3333', 
+                color: 'black',
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                backgroundColor: '#cc2929',
+                boxShadow: '0 0 30px rgba(255, 51, 51, 0.5)',
+              }}
               whileTap={{ scale: 0.98 }}
             >
               {siteConfig.email}
@@ -448,8 +494,8 @@ export default function DarkWorld() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-green-500 transition-colors"
-                  whileHover={{ y: -3 }}
+                  className="text-gray-400 transition-colors"
+                  whileHover={{ y: -3, color: '#ff3333' }}
                 >
                   <div className="text-sm font-mono">{social.name}</div>
                   <div className="text-xs text-gray-600">{social.handle}</div>
@@ -459,7 +505,7 @@ export default function DarkWorld() {
 
             {/* Status */}
             <div className="mt-12 inline-flex items-center gap-2 text-sm">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: '#ff3333' }} />
               <span className="text-gray-500 font-mono">{contactContent.status}</span>
             </div>
           </motion.div>
@@ -470,10 +516,10 @@ export default function DarkWorld() {
       <footer className="py-12 px-6 border-t border-gray-800">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="font-mono text-gray-500 text-sm">
-            <span className="text-green-500">©</span> {new Date().getFullYear()} {siteConfig.name}
+            <span style={{ color: '#ff3333' }}>©</span> {new Date().getFullYear()} {siteConfig.name}
           </div>
           <div className="font-mono text-gray-600 text-xs">
-            {`// Built from the dark side`}
+            {`// Construit depuis les ombres`}
           </div>
         </div>
       </footer>
@@ -499,10 +545,10 @@ function SectionHeader({
       viewport={{ once: true }}
     >
       <div className="font-mono text-sm text-gray-600 mb-2">
-        <span className="text-green-500">$</span> {command}
+        <span style={{ color: '#ff3333' }}>$</span> {command}
       </div>
       <h2 className="text-3xl md:text-4xl font-bold text-white">
-        <span className="text-green-500">#</span> {title}
+        <span style={{ color: '#ff3333' }}>#</span> {title}
       </h2>
     </motion.div>
   );
