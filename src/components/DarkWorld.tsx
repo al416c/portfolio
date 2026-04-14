@@ -240,17 +240,17 @@ export default function DarkWorld() {
           <SectionHeader title="À propos" command="whoami" />
           
           <motion.div
-            className="mt-12 grid md:grid-cols-2 gap-12"
+            className="mt-12 grid md:grid-cols-2 gap-12 items-start"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div>
+            <div className="text-center md:text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
                 {aboutContent.headline}
               </h3>
-              <p className="text-gray-400 leading-relaxed whitespace-pre-line">
+              <p className="text-gray-400 leading-relaxed whitespace-pre-line max-w-xl mx-auto">
                 {aboutContent.description}
               </p>
             </div>
@@ -259,7 +259,7 @@ export default function DarkWorld() {
               {aboutContent.stats.map((stat, i) => (
                 <motion.div
                   key={i}
-                  className="p-4"
+                  className="p-4 text-center"
                   style={{ 
                     border: '1px solid rgba(255, 51, 51, 0.3)',
                     backgroundColor: 'rgba(255, 51, 51, 0.05)',
@@ -291,7 +291,7 @@ export default function DarkWorld() {
             {skillsContent.categories.map((category, i) => (
               <motion.div
                 key={category.name}
-                className="border border-gray-800 bg-[#0d0d0d] p-6 transition-all duration-300"
+                className="border border-gray-800 bg-[#0d0d0d] p-6 transition-all duration-300 text-center"
                 initial={{ y: 50, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: i * 0.1 }}
@@ -306,7 +306,7 @@ export default function DarkWorld() {
                 <h3 className="text-lg font-bold text-white mb-4">{category.name}</h3>
                 <ul className="space-y-2">
                   {category.skills.map((skill) => (
-                    <li key={skill} className="text-sm text-gray-400 flex items-center gap-2">
+                    <li key={skill} className="text-sm text-gray-400 flex items-center justify-center gap-2">
                       <span style={{ color: '#ff3333' }}>›</span>
                       {skill}
                     </li>
@@ -347,7 +347,7 @@ export default function DarkWorld() {
                   </span>
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 text-center">
                   <motion.h3 
                     className="text-xl font-bold text-white mb-3"
                     whileHover={{ color: '#ff3333' }}
@@ -357,7 +357,7 @@ export default function DarkWorld() {
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -390,14 +390,12 @@ export default function DarkWorld() {
           
           <div className="mt-12 relative">
             {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2" style={{ backgroundColor: 'rgba(255, 51, 51, 0.3)' }} />
+            <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2" style={{ backgroundColor: 'rgba(255, 51, 51, 0.3)' }} />
 
             {experienceContent.timeline.map((exp, i) => (
               <motion.div
                 key={i}
-                className={`relative flex md:items-center mb-12 ${
-                  i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
+                className="relative flex items-center justify-center mb-12"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -405,12 +403,12 @@ export default function DarkWorld() {
               >
                 {/* Timeline dot */}
                 <div 
-                  className="absolute left-0 md:left-1/2 w-3 h-3 rounded-full -translate-x-1/2" 
+                  className="absolute left-1/2 w-3 h-3 rounded-full -translate-x-1/2" 
                   style={{ backgroundColor: '#ff3333', boxShadow: '0 0 10px rgba(255, 51, 51, 0.5)' }}
                 />
 
                 {/* Content */}
-                <div className={`ml-8 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+                <div className="w-full max-w-xl mx-auto px-6 text-center">
                   <span className="font-mono text-sm" style={{ color: '#ff3333' }}>{exp.year}</span>
                   <h3 className="text-xl font-bold text-white mt-1">{exp.role}</h3>
                   <p className="text-gray-500 text-sm">{exp.company}</p>
@@ -454,7 +452,7 @@ export default function DarkWorld() {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionHeader title="Contact" command="./connect.sh" centered />
+          <SectionHeader title="Contact" command="./connect.sh" />
           
           <motion.div
             className="mt-12"
@@ -530,16 +528,14 @@ export default function DarkWorld() {
 // Section Header Component
 function SectionHeader({ 
   title, 
-  command, 
-  centered = false 
+  command
 }: { 
   title: string; 
-  command: string; 
-  centered?: boolean;
+  command: string;
 }) {
   return (
     <motion.div
-      className={centered ? 'text-center' : ''}
+      className="text-center"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
