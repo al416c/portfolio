@@ -1,160 +1,128 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useParticlesReady } from '../components/ParticleBackground';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import LoadingScreen from '../components/LoadingScreen';
-import SurveillanceScreen from '../components/SurveillanceScreen';
-import ValidationScreen from '../components/ValidationScreen';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Skills from '../components/Skills';
-import ProjectsPreview from '../components/ProjectsPreview';
-import Contact from '../components/Contact';
-
-type ViewState = 'surveillance' | 'validating' | 'portfolio';
+import Link from 'next/link';
+import { projects } from '../lib/projects';
 
 export default function Home() {
-  const ready = useParticlesReady();
-  const [state, setState] = useState<ViewState>('surveillance');
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [validationText, setValidationText] = useState(
-    'VALIDATION DES ACCRÉDITATIONS'
-  );
-  const [validationGlitch, setValidationGlitch] = useState(true);
-
-  const validationCommands = useMemo(
-    () => [
-      'sudo tcpdump -i eth0 -n -s 0 port 443',
-      "tshark -r capture.pcap -Y 'http.request'",
-      'nmap -sS -A 10.0.0.0/24',
-      'arpspoof -i wlan0 -t 192.168.1.10',
-      'ss -tulpn | grep LISTEN',
-      'aircrack-ng -w wordlist.txt handshake.cap',
-      '[+] SESSION_CAPTURED',
-      '[*] DECRYPTING_TLS_TRAFFIC...',
-      '[!] ANOMALY_DETECTED',
-      'PROMISCUOUS_MODE: ENABLED',
-      'MITM_ACTIVE',
-      'BYPASS_FIREWALL_RULES',
-      'INJECTING_PAYLOAD...',
-      'WPA2_HANDSHAKE_INTERCEPTED',
-      'TCP [SYN]',
-      'TCP [SYN, ACK]',
-      'TCP [RST, ACK]',
-      'ICMP Echo Request',
-      'DNS Standard query A',
-      'TLSv1.3 Client Hello',
-      'ARP Who has 10.0.0.1?',
-      '192.168.1.254',
-      '10.13.37.5',
-      '172.16.0.42',
-      'FF:FF:FF:FF:FF:FF',
-      '00:1A:2B:3C:4D:5E',
-      'PORT:443',
-      'PORT:22',
-      'PORT:8080',
-      '0x90909090',
-      '0x7F454C46',
-      '0x4A2F88CC',
-      '0x00000000',
-      '0xFFFFFFFF',
-    ],
-    []
-  );
-
-  const handleIntercept = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setState('validating');
-      setIsTransitioning(false);
-    }, 520);
-  };
-
-  useEffect(() => {
-    if (state !== 'validating') return;
-
-    const target = 'VALIDATION DES ACCRÉDITATIONS';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
-    let frame = 0;
-    const totalFrames = 44;
-
-    const scramble = setInterval(() => {
-      frame += 1;
-      const progress = frame / totalFrames;
-
-      const next = target
-        .split('')
-        .map((char, index) => {
-          if (char === ' ') return ' ';
-          if (index / target.length < progress) return char;
-          return characters[Math.floor(Math.random() * characters.length)];
-        })
-        .join('');
-
-      setValidationText(next);
-
-      if (frame >= totalFrames) {
-        clearInterval(scramble);
-        setValidationText(target);
-        setValidationGlitch(false);
-      }
-    }, 42);
-
-    const timer = setTimeout(() => {
-      setState('portfolio');
-    }, 1950);
-
-    return () => {
-      clearInterval(scramble);
-      clearTimeout(timer);
-    };
-  }, [state]);
-
-  if (!ready) return <LoadingScreen />;
+  const featuredProjects = projects.slice(0, 3);
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#081624] text-slate-100 [font-family:var(--font-inter)]">
-      <Navbar />
-      <AnimatePresence mode="wait">
-        {state === 'surveillance' && (
-          <SurveillanceScreen
-            isTransitioning={isTransitioning}
-            onIntercept={handleIntercept}
-          />
-        )}
+    <div className="flex flex-col gap-10">
+      {/* Header Section */}
+      <header className="mb-2">
+        <h1 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">
+          Dashboard Overview
+        </h1>
+        <p className="text-slate-500">
+          Welcome back to the command center. Here is a summary of recent activities and security projects.
+        </p>
+      </header>
 
-        {state === 'validating' && (
-          <ValidationScreen
-            validationText={validationText}
-            validationGlitch={validationGlitch}
-            validationCommands={validationCommands}
-          />
-        )}
-
-        {state === 'portfolio' && (
-          <motion.section
-            key="portfolio"
-            className="relative min-h-screen bg-[#0a0f1a] text-slate-100"
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-          >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.08),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(14,165,233,0.06),transparent_50%)]" />
-            <div className="relative flex flex-col">
-              <Hero />
-              <About />
-              <Skills />
-              <ProjectsPreview />
-              <Contact />
-              <Footer />
+      {/* Stats Cards Row */}
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { label: 'Total Projects', value: projects.length, change: '+2 this month', icon: '📁' },
+          { label: 'Security Audits', value: 12, change: '+3 this month', icon: '🛡️' },
+          { label: 'Active Threats', value: 0, change: 'All clear', icon: '✅' },
+          { label: 'Uptime', value: '99.9%', change: 'Stable', icon: '⚡' },
+        ].map((stat, i) => (
+          <div key={i} className="dashboard-card p-6 flex flex-col">
+            <div className="flex justify-between items-start mb-4">
+              <span className="text-2xl">{stat.icon}</span>
+              <span className="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded-full">
+                {stat.change}
+              </span>
             </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-    </main>
+            <h3 className="text-slate-500 text-sm font-medium mb-1">{stat.label}</h3>
+            <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* Main Content Grid */}
+      <section className="grid gap-8 lg:grid-cols-3">
+        {/* Recent Projects Column */}
+        <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold text-slate-900">Recent Projects</h2>
+            <Link href="/projets" className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+              View All &rarr;
+            </Link>
+          </div>
+          
+          <div className="grid gap-4">
+            {featuredProjects.map((project) => (
+              <Link key={project.slug} href={`/projets/${project.slug}`}>
+                <div className="dashboard-card p-5 flex items-center justify-between group cursor-pointer hover:border-blue-200">
+                  <div className="flex items-center gap-4">
+                    <div 
+                      className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 shadow-sm border border-slate-100 transition-transform group-hover:scale-105"
+                      style={{ color: project.color }}
+                    >
+                      {project.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {project.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 mt-0.5">{project.category}</p>
+                    </div>
+                  </div>
+                  <div className="hidden sm:block">
+                    <span className="text-sm font-medium text-slate-400 group-hover:text-blue-500 transition-colors flex items-center gap-2">
+                      Review <span className="text-lg">&rarr;</span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Profile / Skills Column */}
+        <div className="flex flex-col gap-6">
+          <h2 className="text-xl font-bold text-slate-900">System Profile</h2>
+          
+          <div className="dashboard-card p-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl border-4 border-white shadow-sm">
+                AM
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-lg">Alex Manfait</h3>
+                <p className="text-sm text-slate-500">Security Engineer</p>
+              </div>
+            </div>
+            
+            <p className="text-sm text-slate-600 leading-relaxed mb-6">
+              Cybersecurity professional specializing in penetration testing, threat analysis, and secure systems development.
+            </p>
+
+            <div className="space-y-4 border-t border-slate-100 pt-6">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Core Capabilities</h4>
+              
+              {[
+                { name: 'Offensive Security', level: 90 },
+                { name: 'Defensive Architecture', level: 85 },
+                { name: 'Secure Development', level: 80 }
+              ].map((skill, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between text-xs mb-1.5 font-medium">
+                    <span className="text-slate-700">{skill.name}</span>
+                    <span className="text-blue-600">{skill.level}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-blue-500 rounded-full transition-all duration-1000 ease-out" 
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
