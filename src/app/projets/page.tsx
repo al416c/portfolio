@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '../../lib/projects';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 
 export default function ProjetsPage() {
   const [filter, setFilter] = useState<string>('all');
@@ -20,133 +18,144 @@ export default function ProjetsPage() {
       : projects.filter((p) => p.category === filter);
 
   return (
-    <main className="min-h-screen bg-[#0a0f1a] text-slate-100">
-      <Navbar />
+    <div className="flex flex-col">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-10 flex flex-col gap-3"
+      >
+        <div className="inline-flex w-fit items-center rounded-full border border-cyan-400/20 bg-cyan-500/5 px-3 py-1.5 backdrop-blur-sm">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400">
+            Portfolio
+          </span>
+        </div>
+        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          Travaux récents
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-400 sm:text-base">
+          Exploration de mes projets en cybersécurité, développement et data.
+          Utilisez les filtres ci-dessous pour affiner votre recherche.
+        </p>
+      </motion.div>
 
-      {/* Background effects */}
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.06),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(14,165,233,0.04),transparent_50%)]" />
+      {/* Category Filter */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="mb-10 flex flex-wrap gap-2"
+      >
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setFilter(cat)}
+            className={`rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.15em] transition-all duration-300 ${
+              filter === cat
+                ? 'border border-cyan-400/50 bg-cyan-500/20 text-cyan-200 shadow-[0_0_15px_rgba(34,211,238,0.15)]'
+                : 'border border-slate-700/50 bg-slate-800/40 text-slate-400 hover:border-slate-600 hover:bg-slate-700/50 hover:text-slate-200'
+            }`}
+          >
+            {cat === 'all' ? 'Tous les projets' : cat}
+          </button>
+        ))}
+      </motion.div>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col px-6 pb-20 pt-28 sm:px-8 lg:px-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 flex flex-col gap-4"
-        >
-          <div className="inline-flex w-fit items-center rounded-full border border-cyan-400/20 bg-cyan-500/5 px-4 py-2 backdrop-blur-sm">
-            <span className="text-xs font-medium uppercase tracking-widest text-cyan-300">
-              Projets
-            </span>
-          </div>
-          <h1 className="text-4xl font-semibold leading-tight text-white sm:text-5xl">
-            Travaux récents
-          </h1>
-          <p className="max-w-3xl text-base leading-8 text-slate-400 sm:text-lg">
-            Une sélection de projets en cybersécurité, développement et data.
-            Cliquez pour explorer chaque réalisation en détail.
-          </p>
-        </motion.div>
-
-        {/* Category Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-10 flex flex-wrap gap-2"
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`rounded-full px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] transition-all duration-300 ${
-                filter === cat
-                  ? 'border border-cyan-400/40 bg-cyan-500/15 text-cyan-200'
-                  : 'border border-slate-700/40 bg-slate-800/30 text-slate-400 hover:border-slate-600/60 hover:text-slate-300'
-              }`}
+      {/* Projects Grid */}
+      <motion.div layout className="grid gap-6 sm:grid-cols-2">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((project, i) => (
+            <motion.article
+              key={project.slug}
+              layout
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+              transition={{ 
+                duration: 0.4, 
+                delay: i * 0.05,
+                layout: { type: 'spring', bounce: 0.1, duration: 0.6 }
+              }}
             >
-              {cat === 'all' ? 'Tous' : cat}
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div layout className="grid gap-6 md:grid-cols-2">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
-              <motion.article
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
+              <Link
+                href={`/projets/${project.slug}`}
+                className="block h-full outline-none ring-cyan-400/50 focus-visible:ring-2 rounded-2xl"
               >
-                <Link
-                  href={`/projets/${project.slug}`}
-                  className="block h-full"
-                >
-                  <div className="group relative h-full overflow-hidden rounded-2xl border border-slate-800/70 bg-slate-950/70 p-8 backdrop-blur-sm transition-all duration-500 hover:border-slate-700/80 hover:shadow-[0_0_45px_rgba(15,23,42,0.5)]">
-                    {/* Hover glow */}
-                    <div
-                      className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{
-                        background: `radial-gradient(circle at 50% 0%, ${project.color}18, transparent 70%)`,
-                      }}
-                    />
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/20 p-6 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-slate-600/80 hover:bg-slate-800/40 hover:shadow-[0_15px_30px_-10px_rgba(0,0,0,0.5)] sm:p-8">
+                  {/* Subtle Glow */}
+                  <div
+                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background: `radial-gradient(circle at 80% 0%, ${project.color}15, transparent 50%)`,
+                    }}
+                  />
 
-                    {/* Top border glow */}
-                    <div
-                      className="absolute inset-x-0 top-0 h-[1px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${project.color}, transparent)`,
-                      }}
-                    />
+                  {/* Top line accent */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-[2px] opacity-40 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background: `linear-gradient(90deg, transparent, ${project.color}, transparent)`,
+                    }}
+                  />
 
-                    <div className="relative z-10">
-                      <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">{project.icon}</span>
-                          <span className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-cyan-300">
-                            {project.category}
-                          </span>
-                        </div>
-                        <span className="text-sm text-slate-500">
-                          {project.year}
-                        </span>
+                  <div className="relative z-10 flex flex-1 flex-col">
+                    <div className="flex items-center justify-between gap-4">
+                      <div 
+                        className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900/50 text-2xl shadow-inner ring-1 ring-white/5 transition-transform duration-300 group-hover:scale-110"
+                        style={{ color: project.color }}
+                      >
+                        {project.icon}
                       </div>
-                      <h2 className="mt-5 text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-cyan-100">
+                      <span className="rounded-full border border-slate-700 bg-slate-900/50 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-400">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <div className="mt-6">
+                      <p 
+                        className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
+                        style={{ color: project.color }}
+                      >
+                        {project.category}
+                      </p>
+                      <h2 className="text-xl font-bold text-slate-100 transition-colors group-hover:text-white">
                         {project.title}
                       </h2>
-                      <p className="mt-3 leading-relaxed text-slate-400">
+                      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-400">
                         {project.description}
                       </p>
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
+                    </div>
+
+                    <div className="mt-auto pt-6">
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-slate-800/90 px-3 py-1 text-xs uppercase tracking-[0.18em] text-slate-300"
+                            className="rounded-md bg-slate-900/50 px-2 py-1 text-[10px] uppercase tracking-wider text-slate-400 ring-1 ring-inset ring-slate-700/50"
                           >
                             {tag}
                           </span>
                         ))}
+                        {project.tags.length > 3 && (
+                          <span className="rounded-md bg-slate-900/50 px-2 py-1 text-[10px] uppercase tracking-wider text-slate-500 ring-1 ring-inset ring-slate-700/50">
+                            +{project.tags.length - 3}
+                          </span>
+                        )}
                       </div>
-                      <div className="mt-6 flex translate-y-2 items-center gap-2 text-sm text-cyan-400 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                        Voir le projet{' '}
-                        <span className="transition-transform duration-300 group-hover:translate-x-1">
-                          →
-                        </span>
+                      
+                      <div className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider opacity-0 transition-all duration-300 group-hover:opacity-100" style={{ color: project.color }}>
+                        Explorer 
+                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                       </div>
                     </div>
                   </div>
-                </Link>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
-
-      <Footer />
-    </main>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
 }
