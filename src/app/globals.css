@@ -1,12 +1,7 @@
 @import 'tailwindcss';
 
 :root {
-  /* Paradise Theme */
-  --paradise-sky: #e8f4fc;
-  --paradise-grass: #4a7c3f;
-  --paradise-sun: #ffd93d;
-  
-  /* Dark Web Theme - Red */
+  /* Dark Network Surveillance Theme */
   --dark-bg: #0a0a0a;
   --dark-surface: #111111;
   --dark-border: #1a1a1a;

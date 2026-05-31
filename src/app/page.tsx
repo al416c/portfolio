@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadFull } from 'tsparticles';
 import type { ISourceOptions } from '@tsparticles/engine';
+import { projects } from '../lib/projects';
 
 type ViewState = 'surveillance' | 'validating' | 'portfolio';
 
@@ -87,7 +89,7 @@ export default function Home() {
 
   const nodeParticleOptions = useMemo<ISourceOptions>(
     () => ({
-      background: { color: '#070c16' },
+      background: { color: '#081725' },
       fullScreen: { enable: false },
       fpsLimit: 120,
       interactivity: {
@@ -107,9 +109,9 @@ export default function Home() {
         },
       },
       particles: {
-        color: { value: ['#7dd3fc', '#22d3ee', '#2dd4bf'] },
+        color: { value: ['#8ee7ff', '#5ee3ff', '#7dd3fc'] },
         links: {
-          color: '#38bdf8',
+          color: '#89cfff',
           distance: isTransitioning ? 85 : 125,
           enable: true,
           opacity: isTransitioning ? 0.9 : 0.34,
@@ -182,9 +184,9 @@ export default function Home() {
         },
       },
       particles: {
-        color: { value: ['#a5f3fc', '#67e8f9', '#6ee7b7'] },
+        color: { value: ['#c2f0ff', '#8be9ff', '#7dd3fc'] },
         links: {
-          color: '#67e8f9',
+          color: '#8ee7ff',
           distance: isTransitioning ? 100 : 135,
           enable: true,
           opacity: isTransitioning ? 0.95 : 0.28,
@@ -290,7 +292,17 @@ export default function Home() {
   }, [state]);
 
   return (
-    <main className="min-h-screen w-full overflow-x-hidden bg-[#070c16] text-slate-100 [font-family:var(--font-inter)]">
+    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#081624] text-slate-100 [font-family:var(--font-inter)]">
+      <nav className="pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-end px-6 py-6 md:px-12">
+        <div className="pointer-events-auto flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-sm text-slate-200 backdrop-blur-xl shadow-[0_25px_60px_rgba(0,0,0,0.22)]">
+          <Link href="/" className="rounded-full px-3 py-2 text-slate-100 transition hover:bg-slate-900/80">
+            Accueil
+          </Link>
+          <Link href="/projets" className="rounded-full bg-cyan-500/15 px-3 py-2 text-cyan-200 transition hover:bg-cyan-500/25">
+            Projets
+          </Link>
+        </div>
+      </nav>
       <AnimatePresence mode="wait">
         {state === 'surveillance' && (
           <motion.section
@@ -320,7 +332,7 @@ export default function Home() {
               </>
             )}
 
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.18),transparent_35%),radial-gradient(circle_at_80%_80%,rgba(8,47,73,0.35),transparent_45%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.22),transparent_38%),radial-gradient(circle_at_80%_80%,rgba(18,70,110,0.32),transparent_42%)]" />
 
             <AnimatePresence>
               {isTransitioning && (
@@ -403,121 +415,218 @@ export default function Home() {
         {state === 'portfolio' && (
           <motion.section
             key="portfolio"
-            className="relative min-h-screen bg-[#0f141d] text-slate-100"
-            initial={{ opacity: 0, scale: 1.04 }}
+            className="relative min-h-screen bg-[#0a0f1a] text-slate-100"
+            initial={{ opacity: 0, scale: 1.02 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+            transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(56,189,248,0.14),transparent_30%),radial-gradient(circle_at_80%_90%,rgba(16,185,129,0.12),transparent_34%)]" />
-            <motion.div className="pointer-events-none absolute inset-0 z-30" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
-              <motion.div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'radial-gradient(circle at center, rgba(226,232,240,0.16) 0%, rgba(148,163,184,0.06) 35%, transparent 62%)',
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.45, 0] }}
-                transition={{ duration: 0.36, ease: 'easeOut' }}
-              />
-              <motion.div
-                className="absolute left-0 right-0 h-28"
-                style={{
-                  background:
-                    'linear-gradient(to bottom, rgba(56,189,248,0), rgba(56,189,248,0.35), rgba(56,189,248,0))',
-                }}
-                initial={{ y: '-25%' }}
-                animate={{ y: '120%' }}
-                transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-              />
-            </motion.div>
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.08),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(14,165,233,0.06),transparent_50%)]" />
 
-            <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center px-6 py-12 md:px-8">
-              <section id="a-propos" className="mb-16 grid w-full grid-cols-1 gap-6 md:grid-cols-10">
-                <div className="md:col-span-7 flex flex-col justify-center rounded-2xl border border-sky-950/80 bg-slate-900/45 p-8 shadow-[0_0_35px_rgba(14,165,233,0.14)]">
-                  <h1 className="text-3xl font-bold leading-tight text-white md:text-5xl">Ingenieur Securite oriente Red Team et Blue Team</h1>
-                  <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 md:text-lg">
-                    J&apos;accompagne les equipes produit et infrastructure dans l&apos;anticipation des menaces, la validation des defenses et la mise en place de plans de reponse efficaces.
+            <div className="relative flex flex-col">
+              {/* Hero Section */}
+              <div className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 pt-20 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="flex flex-col items-center text-center"
+                >
+                  <div className="mb-8 inline-flex items-center justify-center rounded-full border border-cyan-400/20 bg-cyan-500/5 px-4 py-2 backdrop-blur-sm">
+                    <span className="text-xs font-medium tracking-widest text-cyan-300 uppercase">Profil</span>
+                  </div>
+                  
+                  <h1 className="max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
+                    <span className="bg-gradient-to-br from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">Nom</span>
+                  </h1>
+                  
+                  <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 md:text-xl">
+                    Titre
                   </p>
-                </div>
-
-                <div className="md:col-span-3 flex flex-col gap-4">
-                  <div className="rounded-2xl border border-sky-950/80 bg-slate-900/45 p-6 shadow-[0_0_30px_rgba(14,165,233,0.14)]">
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400 [font-family:var(--font-mono)]">Experience</p>
-                    <p className="mt-3 text-3xl font-semibold text-white">8+ ans</p>
-                  </div>
-                  <div className="rounded-2xl border border-sky-950/80 bg-slate-900/45 p-6 shadow-[0_0_30px_rgba(14,165,233,0.14)]">
-                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400 [font-family:var(--font-mono)]">Missions</p>
-                    <p className="mt-3 text-3xl font-semibold text-white">45+</p>
-                  </div>
-                </div>
-              </section>
-
-              <section id="competences" className="mb-16 flex w-full flex-col items-center">
-                <h2 className="mb-6 text-xl text-cyan-300 [font-family:var(--font-mono)] md:text-2xl">Competences</h2>
-                <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-4">
-                  {[
-                    { title: 'Forensique', items: 'Analyse memoire, timeline incident, acquisition de preuves' },
-                    { title: 'Pentest', items: 'Audit applicatif, intrusions controlees, validation des correctifs' },
-                    { title: 'Reseau', items: 'Detection d\'anomalies, segmentation, hardening et monitoring' },
-                    { title: 'DevSecOps', items: 'CI/CD securise, scanning continu, gestion des secrets' },
-                  ].map((skill) => (
-                    <article
-                      key={skill.title}
-                      className="rounded-2xl border border-sky-950/80 bg-slate-900/45 p-6 shadow-[0_0_30px_rgba(14,165,233,0.14)]"
+                  
+                  <div className="mt-12 flex flex-col items-center gap-3 md:flex-row md:gap-6">
+                    <motion.button
+                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)' }}
+                      whileTap={{ scale: 0.98 }}
+                      className="rounded-full border border-cyan-400/40 bg-cyan-500/15 px-8 py-3 font-medium text-cyan-300 backdrop-blur-sm transition hover:bg-cyan-500/25"
                     >
-                      <h3 className="mb-3 text-base text-emerald-300 [font-family:var(--font-mono)]">{skill.title}</h3>
-                      <p className="text-sm leading-7 text-slate-200">{skill.items}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section id="projets" className="mb-16 flex w-full flex-col items-center">
-                <h2 className="mb-6 text-xl text-cyan-300 [font-family:var(--font-mono)] md:text-2xl">Projets</h2>
-                <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-                  {[
-                    {
-                      title: 'ThreatScope',
-                      desc: 'Plateforme interne de correlation d\'evenements securite pour prioriser les alertes SOC.',
-                      stack: 'NEXT.JS, PYTHON, ELASTIC, SIGMA',
-                    },
-                    {
-                      title: 'NetSentinel',
-                      desc: 'Systeme de supervision reseau avec detection comportementale et alerting contextualise.',
-                      stack: 'GO, SURICATA, GRAFANA, KAFKA',
-                    },
-                    {
-                      title: 'PhantomLab',
-                      desc: 'Lab red team automatise pour simuler des chaines d\'attaque en environnement controle.',
-                      stack: 'TERRAFORM, ANSIBLE, RUST',
-                    },
-                    {
-                      title: 'IncidentFlow',
-                      desc: 'Workflow de reponse a incident avec playbooks et suivi des actions post-mortem.',
-                      stack: 'TYPESCRIPT, NODE.JS, POSTGRES',
-                    },
-                  ].map((project) => (
-                    <article
-                      key={project.title}
-                      className="flex min-h-[260px] flex-col rounded-2xl border border-sky-950/80 bg-slate-900/45 p-7 shadow-[0_0_32px_rgba(14,165,233,0.14)]"
+                      Contact
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="rounded-full border border-slate-600/40 bg-slate-700/20 px-8 py-3 font-medium text-slate-300 backdrop-blur-sm transition hover:bg-slate-700/40"
                     >
-                      <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-                      <p className="mt-4 text-base leading-8 text-slate-200">{project.desc}</p>
-                      <p className="mt-5 text-sm uppercase tracking-[0.16em] text-emerald-300 [font-family:var(--font-mono)]">{project.stack}</p>
-                      <a href="#" className="mt-auto pt-8 text-base text-cyan-300 transition-colors hover:text-cyan-200">Voir le rapport simule -&gt;</a>
-                    </article>
-                  ))}
-                </div>
-              </section>
+                      Voir CV
+                    </motion.button>
+                  </div>
+                </motion.div>
 
-              <section id="contact" className="w-full rounded-2xl border border-sky-950/80 bg-slate-900/45 p-8 shadow-[0_0_30px_rgba(14,165,233,0.14)]">
-                <h2 className="text-xl text-cyan-300 [font-family:var(--font-mono)] md:text-2xl">Contact</h2>
-                <p className="mt-4 max-w-3xl text-base leading-8 text-slate-200">Disponible pour missions en audit securite, durcissement d&apos;infrastructure et accompagnement strategique cyber.</p>
-                <a href="mailto:contact@alexmanfait.com" className="mt-6 inline-flex rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-6 py-3 text-sm text-cyan-200 transition hover:bg-cyan-500/20">
-                  contact@alexmanfait.com
-                </a>
-              </section>
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute bottom-8 text-cyan-400/40"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </motion.div>
+              </div>
+
+              {/* Stats Section */}
+              <div className="grid grid-cols-1 gap-8 px-6 py-20 md:grid-cols-3 md:px-12">
+                {[
+                  { label: 'Expérience', value: 'Années' },
+                  { label: 'Missions', value: 'Nombre' },
+                  { label: 'Certifications', value: 'Nombre' },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.6 }}
+                    className="flex flex-col items-center gap-2 border-b border-slate-800/50 pb-6"
+                  >
+                    <p className="text-sm font-medium uppercase tracking-wider text-slate-500">{stat.label}</p>
+                    <p className="text-4xl font-light text-white md:text-5xl">{stat.value}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* About Section */}
+              <div className="border-t border-slate-800/50 px-6 py-20 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="max-w-3xl"
+                >
+                  <h2 className="text-3xl font-semibold md:text-4xl">À propos</h2>
+                  <p className="mt-6 text-base leading-relaxed text-slate-400 md:text-lg">
+                    Description détaillée du profil et du domaine d&apos;expertise. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                  <p className="mt-4 text-base leading-relaxed text-slate-400 md:text-lg">
+                    Informations complémentaires et détails pertinents sur l&apos;expérience professionnelle et les objectifs.
+                  </p>
+                </motion.div>
+              </div>
+
+              {/* Skills Section */}
+              <div className="border-t border-slate-800/50 px-6 py-20 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="text-3xl font-semibold md:text-4xl">Compétences</h2>
+                  
+                  <div className="mt-12 grid gap-12 md:grid-cols-2">
+                    {[
+                      { category: 'Catégorie 1', items: ['Compétence', 'Compétence', 'Compétence'] },
+                      { category: 'Catégorie 2', items: ['Compétence', 'Compétence', 'Compétence'] },
+                      { category: 'Catégorie 3', items: ['Compétence', 'Compétence', 'Compétence'] },
+                      { category: 'Catégorie 4', items: ['Compétence', 'Compétence', 'Compétence'] },
+                    ].map((skill, i) => (
+                      <motion.div
+                        key={skill.category}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05, duration: 0.6 }}
+                      >
+                        <h3 className="mb-4 text-lg font-medium text-cyan-300">{skill.category}</h3>
+                        <ul className="space-y-2">
+                          {skill.items.map((item) => (
+                            <li key={item} className="text-slate-400 hover:text-cyan-300 transition">{item}</li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Projects Section */}
+              <div className="border-t border-slate-800/50 px-6 py-20 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="text-3xl font-semibold md:text-4xl">Projets</h2>
+                  
+                  <div className="mt-12 space-y-8">
+                    {projects.map((project, i) => (
+                      <motion.article
+                        key={project.slug}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05, duration: 0.6 }}
+                        className="border-b border-slate-800/50 pb-8"
+                      >
+                        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                          <div className="flex-1">
+                            <div className="mb-3 flex flex-wrap gap-2 text-xs uppercase tracking-[0.18em] text-cyan-300">
+                              <span className="rounded-full bg-cyan-500/10 px-3 py-1">{project.category}</span>
+                              <span className="rounded-full bg-slate-800/80 px-3 py-1">{project.year}</span>
+                            </div>
+                            <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+                            <p className="mt-3 text-slate-400">{project.description}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                              {project.tags.map((tag) => (
+                                <span key={tag} className="inline-flex rounded-full bg-slate-800/90 px-3 py-1 text-sm text-slate-300">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <Link
+                            href={`/projets/${project.slug}`}
+                            className="mt-4 inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition md:mt-0"
+                          >
+                            Détails <span>→</span>
+                          </Link>
+                        </div>
+                      </motion.article>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Contact Section */}
+              <div className="border-t border-slate-800/50 px-6 py-20 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="flex flex-col items-center gap-8 text-center"
+                >
+                  <div>
+                    <h2 className="text-3xl font-semibold md:text-4xl">Prenons contact</h2>
+                    <p className="mt-4 max-w-2xl text-slate-400">Message et disponibilité. Prêt pour discuter d&apos;opportunités et de projets.</p>
+                  </div>
+                  
+                  <div className="flex flex-col gap-3">
+                    <a href="mailto:email@example.com" className="rounded-full border border-cyan-400/40 bg-cyan-500/15 px-8 py-3 font-medium text-cyan-300 backdrop-blur-sm transition hover:bg-cyan-500/25">
+                      email@example.com
+                    </a>
+                    <div className="flex gap-3 justify-center">
+                      {['LinkedIn', 'GitHub', 'Twitter'].map((social) => (
+                        <a
+                          key={social}
+                          href="#"
+                          className="rounded-full border border-slate-600/40 bg-slate-700/20 px-4 py-2 text-sm text-slate-400 backdrop-blur-sm transition hover:bg-slate-700/40 hover:text-slate-300"
+                        >
+                          {social}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Footer */}
+              <div className="border-t border-slate-800/50 px-6 py-8 text-center text-slate-500 md:px-12">
+                <p className="text-sm">© 2024. Tous droits réservés.</p>
+              </div>
             </div>
           </motion.section>
         )}
@@ -525,13 +634,24 @@ export default function Home() {
         {state === 'validating' && (
           <motion.section
             key="validating"
-            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#060b13]"
+            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#071928]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.2),transparent_52%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(102,216,255,0.18),transparent_52%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,15,29,0.18),rgba(3,10,20,0.4))]" />
+
+            {[...Array(6)].map((_, index) => (
+              <motion.div
+                key={`abstergo-slate-${index}`}
+                className="absolute left-1/2 top-0 h-full w-[10vw] rounded-r-full bg-white/5 blur-sm"
+                style={{ x: `${-24 + index * 9}%` }}
+                animate={{ opacity: [0, 0.18, 0.08, 0], x: [`${-24 + index * 9}%`, `${-28 + index * 9}%`, `${-20 + index * 9}%`, `${-24 + index * 9}%`] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: index * 0.08 }}
+              />
+            ))}
 
             {[...Array(68)].map((_, i) => (
               <motion.div
@@ -623,10 +743,10 @@ export default function Home() {
             />
 
             <motion.div
-              className="relative z-20 rounded-2xl border border-cyan-300/35 bg-slate-950/70 px-10 py-7 text-center backdrop-blur-xl [font-family:var(--font-mono)]"
-              animate={validationGlitch ? { x: [0, -1, 1, 0], opacity: [1, 0.92, 1] } : { x: 0, opacity: 1 }}
+              className="relative z-20 rounded-2xl border border-cyan-200/40 bg-slate-900/70 px-10 py-7 text-center backdrop-blur-2xl [font-family:var(--font-mono)]"
+              animate={validationGlitch ? { x: [0, -1, 1, 0], opacity: [1, 0.9, 1] } : { x: 0, opacity: 1 }}
               transition={{ duration: 0.22, repeat: validationGlitch ? Infinity : 0 }}
-              style={{ boxShadow: '0 0 70px rgba(56, 189, 248, 0.3), inset 0 0 22px rgba(16, 185, 129, 0.08)' }}
+              style={{ boxShadow: '0 0 96px rgba(96, 165, 250, 0.22), inset 0 0 28px rgba(56, 189, 248, 0.14)' }}
             >
               <motion.div
                 className="pointer-events-none absolute inset-0 rounded-2xl border border-white/10"

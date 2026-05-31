@@ -1,12 +1,12 @@
 # 🛡️ Cybersecurity Portfolio
 
-A stunning, Apple-inspired portfolio website built with Next.js, featuring smooth animations and a cybersecurity theme. Perfect for job interviews and showcasing your expertise.
+A cybersecurity-focused portfolio website built with Next.js, featuring network surveillance aesthetics and a cinematic validation transition.
 
 ## ✨ Features
 
-- **Apple-Inspired Design**: Clean, modern aesthetics inspired by apple.com
+- **Dark Network Surveillance UI**: Network monitoring aesthetics with particle effects
 - **Matrix Rain Effect**: Animated cybersecurity-themed background
-- **Smooth Animations**: Powered by Framer Motion and Anime.js
+- **Cinematic Transitions**: Powered by Framer Motion with packet storms and glitch effects
 - **Responsive Design**: Looks great on all devices
 - **Custom Cursor**: Interactive cursor effect on desktop
 - **Scroll Progress**: Visual scroll indicator
